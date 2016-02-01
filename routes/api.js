@@ -26,7 +26,8 @@ router.all('/*', function (req, res, next) {
 //    console.log('userInfo: ');
 //    console.log(userInfo);
 
-    if ( !userInfo ) {
+//    if ( !userInfo ) {
+    if ( false ) {
         res.send({
             success: false,
             message: "Authorization Failed."
@@ -45,13 +46,13 @@ router.all('/*', function (req, res, next) {
 router.get('/*', function (req, res) {
     var apiUrl = config.apiUrl;
     
-    if ( !req.session.access_token ) {
-        res.send({
-            success: false,
-            message: "Authorization Failed."
-        });
-        return;
-    }
+//    if ( !req.session.access_token ) {
+//        res.send({
+//            success: false,
+//            message: "Authorization Failed."
+//        });
+//        return;
+//    }
 
     console.log('API Url: ' + apiUrl);
     console.log('req Url: ' + req.url);
@@ -79,13 +80,13 @@ router.get('/*', function (req, res) {
 router.delete('/*', function (req, res) {
     var apiUrl = config.apiUrl;
     
-    if ( !req.session.access_token ) {
-        res.send({
-            success: false,
-            message: "Authorization Failed."
-        });
-        return;
-    }
+//    if ( !req.session.access_token ) {
+//        res.send({
+//            success: false,
+//            message: "Authorization Failed."
+//        });
+//        return;
+//    }
 
     console.log('API delete Url: ' + apiUrl);
     console.log('req delete Url: ' + req.url);
@@ -123,13 +124,13 @@ router.put('/*', function (req, res) {
     var reqUrl = config.apiUrl + req.url;
     var bodyData = JSON.stringify(req.body || {});
     
-    if ( !req.session.access_token ) {
-        res.send({
-            success: false,
-            message: "Authorization Failed."
-        });
-        return;
-    }
+//    if ( !req.session.access_token ) {
+//        res.send({
+//            success: false,
+//            message: "Authorization Failed."
+//        });
+//        return;
+//    }
 
 
 //console.log('req.body: ');
@@ -164,13 +165,13 @@ router.post('/*', function (req, res) {
     var topics = [],
         topicsRows = 0;
     
-    if ( !req.session.access_token ) {
-        res.send({
-            success: false,
-            message: "Authorization Failed."
-        });
-        return;
-    }
+//    if ( !req.session.access_token ) {
+//        res.send({
+//            success: false,
+//            message: "Authorization Failed."
+//        });
+//        return;
+//    }
 
     if ( req.body.icon ) {
         var iconFile = path.join(__dirname, '../public/' + req.body.icon);

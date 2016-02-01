@@ -11,7 +11,7 @@ var path = require('path');
 /* GET Test page. */
 router.get('/test', function (req, res) {
     req.session.access_token = 'sfdgdfdsfgs';
-    res.send('The ESTEE HR');
+    res.send('The Rules Engine Console');
 });
 
 function loginUser(req, res, callback) {
@@ -372,7 +372,7 @@ router.get('/logout', function (req, res) {
 /* GET home page. */
 router.get('/', function (req, res) {        
     res.render('index', {
-        title: 'ESTEE HR'
+        title: 'Rules Engine Console'
     });
 });
 
