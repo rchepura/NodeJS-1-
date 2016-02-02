@@ -255,10 +255,6 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
   height: 660px;
   margin: 0 auto;
 }
-.rules-wrapper .main-contents-container .list-container {
-  margin: 20px 0;
-/*width: 500px;*/
-}
 .rules-wrapper .main-contents-container .list-container .item-list {
   width: 300px;
   padding: 10px 40px;
@@ -301,7 +297,34 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
   padding: 20px;
   margin-bottom: 60px;
 }
+.rules-wrapper .main-contents-container .new-window .new-window-box .form-group {
+  margin-bottom: 0;
+}
 .rules-wrapper .main-contents-container .new-window .new-window-box .rule-action-pane {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 15px 0;
+/*padding: 15px 30px 0;*/
+}
+#new-rule .modal-dialog,
+#new-action .modal-dialog {
+  width: 800px;
+}
+#new-rule .create-window,
+#new-action .create-window {
+  padding: 50px 20px 10px;
+  min-height: 300px;
+}
+#new-rule .create-window .new-window-box,
+#new-action .create-window .new-window-box {
+  border: 1px solid #ccc;
+  min-height: 300px;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 60px;
+}
+#new-rule .create-window .new-window-box .rule-action-pane,
+#new-action .create-window .new-window-box .rule-action-pane {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 15px 0;

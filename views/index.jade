@@ -47,89 +47,106 @@ block content
         #id-rules-wrapper.rules-wrapper
 
             .main-contents-container
-                .list-container.rules-container.col-xs-5
+                .list-container.rules-container.col-xs-4
                     h3 Rules
                     .item-list
-                .new-window.new-rule-container.col-xs-7
+                .new-window.new-rule-container.col-xs-8
                     .new-window-box
                         form.form-horizontal(role="form",  onsubmit="return false;")
                             .form-group
-                                label.col-sm-3.control-label(for="ruleName") Name
+                                label.col-sm-3.control-label Name
                                 .col-sm-7(style="padding: 0px;")
-                                    input.rule-field.form-control(type="text", name="ruleName", value="")
+                                    h5#rule-ruleName.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="description") Description
+                                label.col-sm-3.control-label Description
                                 .col-sm-7(style="padding: 0px;")
-                                    input.rule-field.form-control(type="text", name="description", value="")
+                                    h5#rule-description.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="action") Action
-                                .col-sm-7(style="padding: 0px;")
-                                    select.form-control(name="action")
-                                .col-sm-2 &nbsp;
-                                .col-sm-3 &nbsp;
+                                label.col-sm-3.control-label Action
                                 .col-sm-7.rule-action-pane
+                                    .action-group
+                                        label.col-sm-3.control-label Name
+                                        .col-sm-9(style="padding: 0px;")
+                                            h5#rule-action-actionTemplateName.text-field &nbsp;
+                                    .action-group
+                                        label.col-sm-3.control-label Description
+                                        .col-sm-12(style="padding: 0px;")
+                                        .col-sm-3 &nbsp;
+                                        .col-sm-9(style="padding: 0px;")
+                                            h5#rule-action-actionTemplateDescription.text-field &nbsp;
+                                    .action-group
+                                        label.col-sm-3.control-label Type
+                                        .col-sm-9(style="padding: 0px;")
+                                            h5#rule-action-type.text-field &nbsp;
+                                    .action-group
+                                        label.col-sm-3.control-label Push
+                                        .col-sm-9(style="padding: 0px;")
+                                            h5#rule-action-push.text-field true
+                                    .action-group
+                                        label.col-sm-3.control-label Payload
+                                        .col-sm-9(style="padding: 0px;")
+                                            h5#rule-action-pushPayload.text-field &nbsp;
+                                    .action-group
+                                        label.col-sm-3.control-label Hours
+                                        .col-sm-1
+                                            h5#rule-action-expirationHour.text-field 2
+                                        label.col-sm-3.control-label Minutes
+                                        .col-sm-1
+                                            h5#rule-action-expirationMin.text-field 24
+                                        label.col-sm-3.control-label Days
+                                        .col-sm-1
+                                            h5#rule-action-expirationDays.text-field 5
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="conditionJexl") Condition Jexl
+                                label.col-sm-3.control-label Condition Jexl
                                 .col-sm-7(style="padding: 0px;")
-                                    input.rule-field.form-control(type="text", name="conditionJexl", value="")
+                                    h5#rule-conditionJexl.text-field &nbsp;
                                 .col-sm-2 &nbsp;
-                            //.form-group
-                                //label.col-sm-3.control-label(for="timeCreated") Created
-                                //.col-sm-7(style="padding: 0px;")
-                                    //input.rule-field.form-control(type="text", name="timeCreated", value="")
-                                //.col-sm-2 &nbsp;
-                        .row
-                            button.btn.btn-primary.save-rule.pull-right(data-dismiss="modal", type="button") Save
                     
-                .list-container.actions-container.col-xs-5
+                .list-container.actions-container.col-xs-4
                     h3 Actions
                     .item-list
-                .new-window.new-action-container.col-xs-7
+                .new-window.new-action-container.col-xs-8
                     .new-window-box
-                        form.form-horizontal.clearfix(role="form",  onsubmit="return false;")
+                        form.form-horizontal.clearfix(role="form", onsubmit="return false;")
                             .form-group
-                                label.col-sm-3.control-label(for="actionTemplateName") Name
+                                label.col-sm-3.control-label Name
                                 .col-sm-7(style="padding: 0px;")
-                                    input.form-control(type="text", name="actionTemplateName", value="")
+                                    h5#action-actionTemplateName.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="actionTemplateDescription") Description
+                                label.col-sm-3.control-label Description
                                 .col-sm-7(style="padding: 0px;")
-                                    input.form-control(type="text", name="actionTemplateDescription", value="")
+                                    h5#action-actionTemplateDescription.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="type") Type
+                                label.col-sm-3.control-label Type
                                 .col-sm-7(style="padding: 0px;")
-                                    input.form-control(type="text", name="type", value="")
+                                    h5#action-type.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                .col-sm-offset-3.col-sm-7
-                                    .checkbox
-                                        label
-                                            input(type="checkbox", name="push")
-                                            | Push
-                                .col-sm-2 &nbsp;
-                            .form-group
-                                label.col-sm-3.control-label(for="pushPayload") Push Payload
+                                label.col-sm-3.control-label Push
                                 .col-sm-7(style="padding: 0px;")
-                                    input.form-control(type="text", name="pushPayload", value="")
+                                    h5#action-push.text-field &nbsp;
                                 .col-sm-2 &nbsp;
                             .form-group
-                                label.col-sm-3.control-label(for="expirationHour") Expiration Hours
+                                label.col-sm-3.control-label Push Payload
+                                .col-sm-7(style="padding: 0px;")
+                                    h5#action-pushPayload.text-field &nbsp;
+                                .col-sm-2 &nbsp;
+                            .form-group
+                                label.col-sm-3.control-label Expiration Hours
                                 .col-sm-1(style="padding: 0px;")
-                                    input.form-control(type="text", name="expirationHour", value="")
-                                label.col-sm-2.control-label(for="emailId") Minutes
+                                    h5#action-expirationHour.text-field 2
+                                label.col-sm-2.control-label Minutes
                                 .col-sm-1(style="padding: 0px;")
-                                    input.form-control(type="text", name="expirationMin", value="")
-                                label.col-sm-2.control-label(for="expirationDays") Days
+                                    h5#action-expirationMin.text-field 34
+                                label.col-sm-2.control-label Days
                                 .col-sm-1(style="padding: 0px;")
-                                    input.form-control(type="text", name="expirationDays", value="")
+                                    h5#action-expirationDays.text-field 4
                                 .col-sm-2 &nbsp;
-                        .row
-                            button.btn.btn-primary.save-action.pull-right(data-dismiss="modal", type="button") Save
 
         script#templateRulesView(type="text/template")
             <% _.each(data, function(model, key) { %>
@@ -190,6 +207,93 @@ block content
                     .col-sm-2(style="padding: 0px;")
                         input.form-control(type="text", name="expirationDays", value!="<%- model.expirationDays %>")
             
+        #new-rule.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirm-alert-label", aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h4
+                    .modal-body.clearfix
+                        .create-window.new-rule-container
+                            .new-window-box
+                                form.form-horizontal(role="form",  onsubmit="return false;")
+                                    .form-group
+                                        label.col-sm-3.control-label(for="ruleName") Name
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.rule-field.form-control(type="text", name="ruleName", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="description") Description
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.rule-field.form-control(type="text", name="description", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="action") Action
+                                        .col-sm-7(style="padding: 0px;")
+                                            select.form-control(name="action")
+                                        .col-sm-2 &nbsp;
+                                        .col-sm-3 &nbsp;
+                                        .col-sm-7.rule-action-pane
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="conditionJexl") Condition Jexl
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.rule-field.form-control(type="text", name="conditionJexl", value="")
+                                        .col-sm-2 &nbsp;
+                    .modal-footer
+                        button.btn.btn-primary.save-rule(data-dismiss="modal", style="margin-right: 20px;", type="button") Save
+                        button.btn.btn-default.no(data-dismiss="modal", aria-hidden="true", type="button") Cancel
+
+        #new-action.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirm-alert-label", aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h4
+                    .modal-body.clearfix
+                        .create-window.new-rule-container
+                            .new-window-box
+                                form.form-horizontal.clearfix(role="form",  onsubmit="return false;")
+                                    .form-group
+                                        label.col-sm-3.control-label(for="actionTemplateName") Name
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.form-control(type="text", name="actionTemplateName", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="actionTemplateDescription") Description
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.form-control(type="text", name="actionTemplateDescription", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="type") Type
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.form-control(type="text", name="type", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        .col-sm-offset-3.col-sm-7
+                                            .checkbox
+                                                label
+                                                    input(type="checkbox", name="push")
+                                                    | Push
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="pushPayload") Push Payload
+                                        .col-sm-7(style="padding: 0px;")
+                                            input.form-control(type="text", name="pushPayload", value="")
+                                        .col-sm-2 &nbsp;
+                                    .form-group
+                                        label.col-sm-3.control-label(for="expirationHour") Expiration Hours
+                                        .col-sm-1(style="padding: 0px;")
+                                            input.form-control(type="text", name="expirationHour", value="")
+                                        label.col-sm-2.control-label(for="emailId") Minutes
+                                        .col-sm-1(style="padding: 0px;")
+                                            input.form-control(type="text", name="expirationMin", value="")
+                                        label.col-sm-2.control-label(for="expirationDays") Days
+                                        .col-sm-1(style="padding: 0px;")
+                                            input.form-control(type="text", name="expirationDays", value="")
+                                        .col-sm-2 &nbsp;
+                    .modal-footer
+                        button.btn.btn-primary.save-action(data-dismiss="modal", style="margin-right: 20px;", type="button") Save
+                        button.btn.btn-default.no(data-dismiss="modal", aria-hidden="true", type="button") Cancel
+
         #confirm-alert.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirm-alert-label", aria-hidden="true")
             .modal-dialog
                 .modal-content

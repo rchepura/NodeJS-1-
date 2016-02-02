@@ -273,7 +273,7 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
         height: 660px;
         margin: 0 auto;
         .list-container {
-            margin: 20px 0;
+            /*margin: 20px 0;*/
             /*width: 500px;*/
             .item-list {
                 width: 300px;
@@ -325,21 +325,51 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
                 width: 100%;
                 padding: 20px;
                 margin-bottom: 60px;
+                .form-group {
+                    margin-bottom: 0;
+                }
+                .text-field {
+                    
+                }
                 .rule-action-pane {
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     margin: 15px 0;
-                    padding: 15px 30px 0;
+                    /*padding: 15px 30px 0;*/
                 }
             }
         }
-        
-        .new-rule-container {
-            
+    }
+}
+
+
+#new-rule, #new-action {
+    .modal-dialog {
+        width: 800px;
+    }
+    .create-window {
+        padding: 50px 20px 10px;
+        min-height: 300px;
+        .new-window-box {
+            border: 1px solid #ccc;
+            min-height: 300px;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 60px;
+            .rule-action-pane {
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin: 15px 0;
+                padding: 15px 30px 0;
+            }
         }
-        .new-action-container {
-            
-        }
+    }
+
+    .new-rule-container {
+
+    }
+    .new-action-container {
+
     }
 }
 

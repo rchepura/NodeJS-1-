@@ -12,6 +12,13 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                 me.init();
             });
             
+            $('#new-rule .save-rule').off().on('click', function(e) {
+                me.saveRule(e);
+            });
+            $('#new-action .save-action').off().on('click', function(e) {
+                me.saveAction(e);
+            });
+            
 //            me.$el.find('input[name="timeCreated"]').datepick({
 //                inline: true,
 ////                showOnFocus: false,
@@ -24,22 +31,48 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         },
         events: {
             'click .add-rule': "onAddRule",
-            'click .save-rule': "saveRule",
+//            'click .save-rule': "saveRule",
             'click .remove-rule': "removeRule",
             'click .add-action': "onAddAction",
-            'click .save-action': "saveAction",
+//            'click .save-action': "saveAction",
             'click .remove-action': "removeAction",
             'click .list-row': "selectListRow"
         },
         selectListRow: function(e) {
             var me = this,
                 $elem = $(e.currentTarget),
-                $elParent = $elem.parent();
+                $elParent = $elem.parent(),
+                itemId = $elem.attr('did'),
+                cData = {};
             
             if ( !$elem.hasClass('active') ) {
                 $elParent.find('.list-row.active').removeClass('active');
                 $elem.addClass('active');
                 $elParent.find('.remove-rule, .remove-action').attr('disabled', false);
+                console.log('itemId: ' + itemId);
+                if ( me.AllRules[itemId] ) {
+//                    me.$el.find('.new-action-container .new-window-box').fadeOut();
+                    me.$el.find('.new-rule-container .new-window-box').fadeIn();
+                    cData = me.AllRules[itemId];
+                    for ( var d in cData ) {
+                        if ( 'action' == d ) {
+                            for ( var a in cData[d] ) {
+                                $('#rule-action-' + a).text(cData[d][a]);
+                            }
+                        } else {
+                            $('#rule-' + d).text(cData[d]);
+                        }
+                    }
+                    
+                } else if ( me.AllActions[itemId] ) {
+//                    me.$el.find('.new-rule-container .new-window-box').fadeOut();
+                    me.$el.find('.new-action-container .new-window-box').fadeIn();
+                    cData = me.AllActions[itemId];
+                    for ( var d in cData ) {
+                        $('#action-' + d).text(cData[d]);
+                    }
+                }
+                
             } else {
                 $elem.removeClass('active');
                 $elParent.find('.remove-rule, .remove-action').attr('disabled', true);
@@ -48,7 +81,8 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         onAddRule: function(e) {
             var me = this;
             
-            me.$el.find('.new-rule-container .new-window-box').fadeIn();
+            $('#new-rule').modal('show');
+//            me.$el.find('.new-rule-container .new-window-box').fadeIn();
         },
         addRule: function(text) {
             var me = this,
@@ -130,7 +164,7 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         saveRule: function(e) {
             var me = this,
                 $elem = $(e.currentTarget),
-                $parent = $elem.closest('.new-window-box'),
+                $parent = $elem.closest('.modal-content'),
                 $inputFields = $parent.find('input.rule-field'),
                 $inputActionFields = $parent.find('.rule-action-pane input'),
                 model = new me.Model(),
@@ -160,25 +194,6 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                     return;
                 }
                 
-//                data = {
-//                    "conditionJexl" : "type\u003dMOVEMENT",
-//                    "action" : {
-//                        "actionTemplateName" : "Camera Action Template",
-//                        "actionTemplateDescription" : "this is camera card template",
-//                        "type" : "GAMERA",
-//                        "push" : true,
-//                        "pushPayload" : "this is test card push",
-//                        "expirationHour" : 20,
-//                        "expirationMin" : 0,
-//                        "expirationDays" : 0
-//                    },
-////                    "ruleName" : "Movement rule",
-//                    "ruleName" : ruleName,
-//                    "description" : "Rule to detect movement",
-//                    "timeCreated" : 0
-//                };
-            
-//            me.addRule($input.val()); 
             me.showLoader();
             
             model.save(data, {
@@ -233,12 +248,13 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         onAddAction: function(e) {
             var me = this;
 
-            me.$el.find('.new-action-container .new-window-box').fadeIn();
+            $('#new-action').modal('show');
+//            me.$el.find('.new-action-container .new-window-box').fadeIn();
         },
         saveAction: function(e) {
             var me = this,
                 $elem = $(e.currentTarget),
-                $inputFields = $elem.closest('.new-window-box').find('input'),
+                $inputFields = $elem.closest('.modal-content').find('input'),
                 model = new me.Model(),
                 data = {};
                 
@@ -345,15 +361,22 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         renderRules: function(rules) {
             var me = this,
                 template = _.template($('#templateRulesView').html(), {data: rules});
-            
+
+            me.$el.find('.new-role-container .new-window-box').fadeOut();
+            me.AllRules = {};
+
+            _.each(rules, function (model, key) {
+                me.AllRules[model.hotpotCardsRuleId] = model;
+            });
             
             me.$el.find('.rules-container .item-list').html(template);
         },
         renderActions: function(actions) {
             var me = this,
                 template = _.template($('#templateActionsView').html(), {data: actions}),
-                $actionSelect = me.$el.find('.new-rule-container select[name="action"]').empty();
-            
+                $actionSelect = $('#new-rule .new-rule-container select[name="action"]').empty();
+
+            me.$el.find('.new-action-container .new-window-box').fadeOut();
             me.AllActions = {};
             
             _.each(actions, function (model, key) {
@@ -371,7 +394,7 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
             var me = this,                
                 template = _.template($('#templateActionFormView').html(), {model: me.AllActions[actionTemplateId] || {}});            
             
-            me.$el.find('.new-rule-container .rule-action-pane').html(template);
+            $('#new-rule .new-rule-container .rule-action-pane').html(template);
         },
         init: function() {
             var me = this;
