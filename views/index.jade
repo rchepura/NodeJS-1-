@@ -169,10 +169,14 @@ block content
                     .col-sm-offset-3.col-sm-9
                         .checkbox
                             label
-                                input(type="checkbox", name="push", checked!="<%- model.push %>")
+                                <% if ( model.push ) { %>
+                                input(type="checkbox", name="push", checked="checked")
+                                <% } else { %>
+                                input(type="checkbox", name="push")
+                                <% } %>
                                 | Push
                 .form-group
-                    label.col-sm-3.control-label(for="pushPayload") Push Payload
+                    label.col-sm-3.control-label(for="pushPayload") Payload
                     .col-sm-9(style="padding: 0px;")
                         input.form-control(type="text", name="pushPayload", value!="<%- model.actionTemplateDescription %>")
                 .form-group
