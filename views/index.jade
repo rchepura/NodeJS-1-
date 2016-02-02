@@ -235,9 +235,25 @@ block content
                                         .col-sm-7.rule-action-pane
                                         .col-sm-2 &nbsp;
                                     .form-group
-                                        label.col-sm-3.control-label(for="conditionJexl") Condition Jexl
+                                        label.col-sm-3.control-label Condition Jexl
+                                        label.col-sm-1.control-label(for="condition-type") Type
+                                        .col-sm-6(style="padding: 0px;")
+                                            input.rule-field.form-control(type="text", name="condition-type", value="")
+                                        .col-sm-2 &nbsp;
+                                        .col-sm-3 &nbsp;
                                         .col-sm-7(style="padding: 0px;")
-                                            input.rule-field.form-control(type="text", name="conditionJexl", value="")
+                                            label.col-sm-2.control-label(for="conditionJexl") Type
+                                            .col-sm-4(style="padding: 0px;")
+                                                select.form-control(name="rule-type")
+                                                    option 1111
+                                                    option 1111
+                                                    option 1111
+                                            label.col-sm-4.control-label(for="conditionJexl") Conditions
+                                            .col-sm-2(style="padding: 0px;")
+                                                select.form-control(name="rule-cond")
+                                                    option >
+                                                    option ==
+                                                    option <
                                         .col-sm-2 &nbsp;
                     .modal-footer
                         button.btn.btn-primary.save-rule(data-dismiss="modal", style="margin-right: 20px;", type="button") Save
