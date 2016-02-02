@@ -60,7 +60,11 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                                 $('#rule-action-' + a).text(cData[d][a]);
                             }
                         } else {
-                            $('#rule-' + d).text(cData[d]);
+                            if ( 'conditionJexl' == d ) {
+                                $('#rule-' + d).text(unescape(cData[d]));
+                            } else {
+                                $('#rule-' + d).text(cData[d]);
+                            }
                         }
                     }
                     
@@ -184,6 +188,8 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                         data.action[$this.attr('name')] = $.trim($this.val());
                     }
                 });
+                
+                data.conditionJexl = escape($('code.condition-jexl').text());
                 
                 console.dir(data);
                 
@@ -397,14 +403,43 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
             $('#new-rule .new-rule-container .rule-action-pane').html(template);
         },
         init: function() {
-            var me = this;
+            var me = this,
+                $ruleType = $('input[name="condition-type"]').val(''),
+                $selectDays = $('select[name="rule-day"]').empty(),
+                $selectDaysCond = $('select[name="condition-day"]'),
+                $selectMinsCond = $('select[name="condition-min"]'),
+                $selectMins = $('select[name="rule-min"]').empty();
+            
+            
+            for ( var i = 0; i <= 23; i++ ) {
+                $selectDays.append('<option value="' + i + '">' + i + '</option>');
+            }
+            
+            for ( i = 0; i <= 59; i++ ) {
+                $selectMins.append('<option value="' + i + '">' + i + '</option>');
+            }
+//            type == movement && time.hourOfDay() < 20 && time.minuteOfHour() < 30
+            $('select[name="rule-day"],select[name="condition-day"],select[name="condition-min"],select[name="rule-min"]').off().on('change', function () {
+                
+                $('code.condition-jexl').text('type == ' + $ruleType.val() 
+                    + ' && time.hourOfDay() ' + $selectDaysCond.val() + ' ' + $selectDays.val() 
+                    + ' &&  time.minuteOfHour()' + $selectMinsCond.val()  + ' ' + $selectMins.val());
+                
+            });
+            
+            $ruleType.on('keypress', function () {                
+                $('code.condition-jexl').text('type == ' + $ruleType.val() 
+                    + ' && time.hourOfDay() ' + $selectDaysCond.val() + ' ' + $selectDays.val() 
+                    + ' &&  time.minuteOfHour()' + $selectMinsCond.val()  + ' ' + $selectMins.val());                
+            })
+            
             
             me.getRules(function(rules) {
                 me.renderRules(rules);
             });            
             me.getActions(function(actions) {
                 me.renderActions(actions);
-            });            
+            });           
         },
         showLoader: function() {
             Util.showSpinner();
