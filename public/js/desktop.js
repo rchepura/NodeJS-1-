@@ -10,8 +10,8 @@ require.config({
         bootstrap: 'libs/bootstrap.min',
         moment: 'libs/moment',
 //        jqueryui: "../libs/jqueryui",
-//        jqueryplugin: "../libs/jquery.plugin.min",
-//        datepicker: "../libs/jquery.datepick.min",
+        jqueryplugin: "libs/jquery.plugin.min",
+        datepicker: "libs/jquery.datepick.min",
 //        resources: '../libs/resources',
         'jquery.validationEngine': 'libs/jquery.validationEngine',
         'jquery.validationEngine-en': 'libs/jquery.validationEngine-en',
@@ -43,12 +43,12 @@ require.config({
 //        jqueryui: {
 //            deps: ["jquery"]
 //        },
-//        jqueryplugin: {
-//            deps: ["jquery"]
-//        },
-//        datepicker: {
-//            deps: ["jqueryplugin", "jquery"]
-//        },
+        jqueryplugin: {
+            deps: ["jquery"]
+        },
+        datepicker: {
+            deps: ["jqueryplugin", "jquery"]
+        },
         'jquery.validationEngine-en': {
             deps: ["jquery"]
         },
@@ -60,7 +60,7 @@ require.config({
         }
     }
 });
-require(['jquery', 'backbone', 'router', 'bootstrap', 'cookies', 'ampstore', 'moment', 'jquery.validationEngine', 'jquery.validationEngine-en'],
+require(['jquery', 'backbone', 'router', 'bootstrap', 'cookies', 'ampstore', 'moment', 'jqueryplugin', 'datepicker', 'jquery.validationEngine', 'jquery.validationEngine-en'],
     function($, Backbone, Router) {
         var foo = JSON.parse;
         JSON.parse = function(str) {str = str || null; return foo(str);}

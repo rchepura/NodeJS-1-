@@ -273,22 +273,37 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
         height: 660px;
         margin: 0 auto;
         .list-container {
-            margin: 20px 10px;
-            width: 500px;
+            margin: 20px 0;
+            /*width: 500px;*/
             .item-list {
                 width: 300px;
                 padding: 10px 40px;
                 min-height: 50px;
                 border: 1px solid #4d4d4d;
                 .list-row {
+                    position: relative;
+                    cursor: default;
                     border-bottom: 1px solid #cccccc;
+                    line-height: 28px;
+                    span {
+                        left: -20px;
+                        top: 6px;
+                        position: absolute;
+                        visibility: hidden;
+                    }
+                }
+                .list-row.active {
+                    font-weight: 800;
+                    span {
+                        visibility: visible;
+                    }
                 }
                 .list-row-btns {
                     button {
-                        font-size: 20px;
+                        font-size: 22px;
                         margin-right: 10px;
                         margin-top: 10px;
-                        padding: 0 10px;
+                        padding: 0 12px 3px;
                     }
                 }
             }
@@ -309,15 +324,13 @@ background: linear-gradient(to right,  #01224e 0%,#0d101c 30%);  W3C */
                 min-height: 300px;
                 width: 100%;
                 padding: 20px;
-            }
-            .form-group {
-                min-height: 200px;
-            }
-            textarea {
-                height: 200px;
-                width: 100%;
-                margin-bottom: 20px;
-                resize: none;
+                margin-bottom: 60px;
+                .rule-action-pane {
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    margin: 15px 0;
+                    padding: 15px 30px 0;
+                }
             }
         }
         

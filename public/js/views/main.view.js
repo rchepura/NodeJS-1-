@@ -11,14 +11,39 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
             me.options.eventPubSub.bind("initMain", function() {
                 me.init();
             });
+            
+//            me.$el.find('input[name="timeCreated"]').datepick({
+//                inline: true,
+////                showOnFocus: false,
+////                showTrigger: '<img src="images/assets/ic_calendar.png" class="datepick-trigger exp-col-edit">',
+////                minDate: new Date(),
+//                onSelect: function (date) {
+//                    me.$el.find('input[name="timeCreated"]').val($.datepick.formatDate("mm/dd/yyyy", date[0]));
+//                }
+//            });
         },
         events: {
             'click .add-rule': "onAddRule",
             'click .save-rule': "saveRule",
-            'click .remove-rules': "removeRule",
+            'click .remove-rule': "removeRule",
             'click .add-action': "onAddAction",
             'click .save-action': "saveAction",
-            'click .remove-action': "removeAction"
+            'click .remove-action': "removeAction",
+            'click .list-row': "selectListRow"
+        },
+        selectListRow: function(e) {
+            var me = this,
+                $elem = $(e.currentTarget),
+                $elParent = $elem.parent();
+            
+            if ( !$elem.hasClass('active') ) {
+                $elParent.find('.list-row.active').removeClass('active');
+                $elem.addClass('active');
+                $elParent.find('.remove-rule, .remove-action').attr('disabled', false);
+            } else {
+                $elem.removeClass('active');
+                $elParent.find('.remove-rule, .remove-action').attr('disabled', true);
+            }
         },
         onAddRule: function(e) {
             var me = this;
@@ -105,32 +130,53 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         saveRule: function(e) {
             var me = this,
                 $elem = $(e.currentTarget),
-                $input = $elem.parent().find('input'),
+                $parent = $elem.closest('.new-window-box'),
+                $inputFields = $parent.find('input.rule-field'),
+                $inputActionFields = $parent.find('.rule-action-pane input'),
                 model = new me.Model(),
-                data = {}, ruleName = $.trim($input.val());
+                data = {};
                 
-                if ( !ruleName ) {
+                $inputFields.each(function() {
+                    var $this = $(this);
+                    data[$this.attr('name')] = $.trim($this.val());
+                });
+                data.action = {};
+                $inputActionFields.each(function() {
+                    var $this = $(this);
+                    
+                    if ( 'checkbox' == $this.attr('type') ) {
+                        data.action[$this.attr('name')] = $this.get(0).checked;
+                    } else {
+                        data.action[$this.attr('name')] = $.trim($this.val());
+                    }
+                });
+                
+                console.dir(data);
+                
+                top.RULESDATA = data;
+                
+                if ( !data.ruleName ) {
                     Alerts.Error.display({title: 'Error', content: "Rule name cannot be empty"});
                     return;
                 }
                 
-                data = {
-                    "conditionJexl" : "type\u003dMOVEMENT",
-                    "action" : {
-                        "actionTemplateName" : "Camera Action Template",
-                        "actionTemplateDescription" : "this is camera card template",
-                        "type" : "GAMERA",
-                        "push" : true,
-                        "pushPayload" : "this is test card push",
-                        "expirationHour" : 20,
-                        "expirationMin" : 0,
-                        "expirationDays" : 0
-                    },
-//                    "ruleName" : "Movement rule",
-                    "ruleName" : ruleName,
-                    "description" : "Rule to detect movement",
-                    "timeCreated" : 0
-                };
+//                data = {
+//                    "conditionJexl" : "type\u003dMOVEMENT",
+//                    "action" : {
+//                        "actionTemplateName" : "Camera Action Template",
+//                        "actionTemplateDescription" : "this is camera card template",
+//                        "type" : "GAMERA",
+//                        "push" : true,
+//                        "pushPayload" : "this is test card push",
+//                        "expirationHour" : 20,
+//                        "expirationMin" : 0,
+//                        "expirationDays" : 0
+//                    },
+////                    "ruleName" : "Movement rule",
+//                    "ruleName" : ruleName,
+//                    "description" : "Rule to detect movement",
+//                    "timeCreated" : 0
+//                };
             
 //            me.addRule($input.val()); 
             me.showLoader();
@@ -162,12 +208,12 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                 model = new me.Model({id: 'del'}),
                 $elem = $(e.currentTarget),
                 $container = $elem.closest('.item-list'),
-                lastRuleID = $container.find('.list-row').last().attr('did');
+                ruleID = $container.find('.list-row.active').attr('did');
         
-                if ( lastRuleID ) {
+            if ( ruleID ) {
                 Util.showSpinner();
                 model.destroy({
-                    url: 'api/rules/rule/' + lastRuleID,
+                    url: 'api/rules/rule/' + ruleID,
                     complete: function(res) {
                         if ( 200 == (res || {}).status ) {
                             me.getRules(function(rules) {
@@ -192,26 +238,46 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
         saveAction: function(e) {
             var me = this,
                 $elem = $(e.currentTarget),
-                $input = $elem.parent().find('input'),
+                $inputFields = $elem.closest('.new-window-box').find('input'),
                 model = new me.Model(),
-                data = {}, ruleActionName = $.trim($input.val());
+                data = {};
                 
-                if ( !ruleActionName ) {
+                top.$elem = $elem;
+                top.JJJ = $inputFields;
+                
+                $inputFields.each(function() {
+                    var $this = $(this);
+                    
+                    if ( 'checkbox' == $this.attr('type') ) {
+                        data[$this.attr('name')] = $this.get(0).checked;
+                    } else {
+                        data[$this.attr('name')] = $.trim($this.val());
+                    }                    
+                });
+                
+                data.timeCreated = (new Date()).getTime();
+                
+                console.dir(data);
+                
+                top.NEW_ACTION_DATA = data;
+                
+                
+                if ( !data.actionTemplateName ) {
                     Alerts.Error.display({title: 'Error', content: "Rule Action Name cannot be empty"});
                     return;
                 }
                 
-                data = {
-//                    "actionTemplateName" : "Camera Action Template",
-                    "actionTemplateName" : ruleActionName,
-                    "actionTemplateDescription" : "this is camera card template",
-                    "type" : "GAMERA",
-                    "push" : true,
-                    "pushPayload" : "this is test card push",
-                    "expirationHour" : 20,
-                    "expirationMin" : 0,
-                    "expirationDays" : 0
-                };
+//                data = {
+////                    "actionTemplateName" : "Camera Action Template",
+//                    "actionTemplateName" : ruleActionName,
+//                    "actionTemplateDescription" : "this is camera card template",
+//                    "type" : "GAMERA",
+//                    "push" : true,
+//                    "pushPayload" : "this is test card push",
+//                    "expirationHour" : 20,
+//                    "expirationMin" : 0,
+//                    "expirationDays" : 0
+//                };
  
             me.showLoader();
             
@@ -254,12 +320,12 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
                 model = new me.Model({id: 'del'}),
                 $elem = $(e.currentTarget),
                 $container = $elem.closest('.item-list'),
-                lastRuleID = $container.find('.list-row').last().attr('did');
+                actionID = $container.find('.list-row.active').attr('did');
         
-                if ( lastRuleID ) {
+            if ( actionID ) {
                 Util.showSpinner();
                 model.destroy({
-                    url: 'api/rules/action/' + lastRuleID,
+                    url: 'api/rules/action/' + actionID,
                     complete: function(res) {
                         if ( 200 == (res || {}).status ) {
                             me.getActions(function(actions) {
@@ -283,12 +349,29 @@ define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
             
             me.$el.find('.rules-container .item-list').html(template);
         },
-        renderActions: function(rules) {
+        renderActions: function(actions) {
             var me = this,
-                template = _.template($('#templateActionsView').html(), {data: rules});
+                template = _.template($('#templateActionsView').html(), {data: actions}),
+                $actionSelect = me.$el.find('.new-rule-container select[name="action"]').empty();
             
+            me.AllActions = {};
+            
+            _.each(actions, function (model, key) {
+                me.AllActions[model.actionTemplateId] = model;
+                $actionSelect.append('<option value="' + model.actionTemplateId + '">' + model.actionTemplateName + '</option>');
+            });
             
             me.$el.find('.actions-container .item-list').html(template);
+            $actionSelect.on('change', function() {
+                me.renderNewRuleActions($(this).val());
+            });
+            me.renderNewRuleActions($actionSelect.val());
+        },
+        renderNewRuleActions: function(actionTemplateId) {
+            var me = this,                
+                template = _.template($('#templateActionFormView').html(), {model: me.AllActions[actionTemplateId] || {}});            
+            
+            me.$el.find('.new-rule-container .rule-action-pane').html(template);
         },
         init: function() {
             var me = this;
