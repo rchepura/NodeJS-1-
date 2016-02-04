@@ -91,13 +91,13 @@ block content
                                             h5#rule-action-pushPayload.text-field &nbsp;
                                     .action-group
                                         label.col-sm-3.control-label Hours
-                                        .col-sm-1
+                                        .col-sm-1.text-cell
                                             h5#rule-action-expirationHour.text-field 2
                                         label.col-sm-3.control-label Minutes
-                                        .col-sm-1
+                                        .col-sm-1.text-cell
                                             h5#rule-action-expirationMin.text-field 24
                                         label.col-sm-3.control-label Days
-                                        .col-sm-1
+                                        .col-sm-1.text-cell
                                             h5#rule-action-expirationDays.text-field 5
                                 .col-sm-2 &nbsp;
                             .form-group
@@ -139,13 +139,13 @@ block content
                                 .col-sm-2 &nbsp;
                             .form-group
                                 label.col-sm-3.control-label Expiration Hours
-                                .col-sm-1(style="padding: 0px;")
+                                .col-sm-1.text-cell
                                     h5#action-expirationHour.text-field 2
                                 label.col-sm-2.control-label Minutes
-                                .col-sm-1(style="padding: 0px;")
+                                .col-sm-1.text-cell
                                     h5#action-expirationMin.text-field 34
                                 label.col-sm-2.control-label Days
-                                .col-sm-1(style="padding: 0px;")
+                                .col-sm-1.text-cell
                                     h5#action-expirationDays.text-field 4
                                 .col-sm-2 &nbsp;
 
@@ -237,20 +237,20 @@ block content
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         label.col-sm-3.control-label Condition Jexl
-                                        label.col-sm-1.control-label Type
-                                        .col-sm-6(style="padding: 0px;")
+                                        label.col-sm-2.control-label Type
+                                        .col-sm-5(style="padding: 0px;")
                                             input.rule-field.form-control(type="text", name="condition-type", value="")
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         .col-sm-3 &nbsp;
-                                        label.col-sm-1.control-label Day
-                                        .col-sm-6(style="padding: 0px;")
+                                        label.col-sm-2.control-label Day
+                                        .col-sm-5(style="padding: 0px;")
                                             select.form-control(name="rule-day")
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         .col-sm-3 &nbsp;
-                                        label.col-sm-1.control-label
-                                        .col-sm-6(style="padding: 0px;")
+                                        label.col-sm-2.control-label
+                                        .col-sm-5(style="padding: 0px;")
                                             select.form-control(name="condition-day")
                                                 option >
                                                 option ==
@@ -259,14 +259,14 @@ block content
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         .col-sm-3 &nbsp;
-                                        label.col-sm-1.control-label Minutes
-                                        .col-sm-6(style="padding: 0px;")
+                                        label.col-sm-2.control-label Minutes
+                                        .col-sm-5(style="padding: 0px;")
                                             select.form-control(name="rule-min")
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         .col-sm-3 &nbsp;
-                                        label.col-sm-1.control-label
-                                        .col-sm-6(style="padding: 0px;")
+                                        label.col-sm-2.control-label
+                                        .col-sm-5(style="padding: 0px;")
                                             select.form-control(name="condition-min")
                                                 option >
                                                 option ==
@@ -275,8 +275,7 @@ block content
                                         .col-sm-2 &nbsp;
                                     .form-group
                                         .col-sm-3 &nbsp;
-                                        label.col-sm-1.control-label
-                                        .col-sm-6
+                                        .col-sm-7.text-cell
                                             code.condition-jexl
                                         .col-sm-2 &nbsp;
                     .modal-footer
